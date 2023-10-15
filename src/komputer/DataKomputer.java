@@ -1,5 +1,6 @@
 package komputer;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -11,6 +12,8 @@ import javax.swing.JTable;
 public class DataKomputer implements AppInterface {
     
     private final Komputer[] komputers;
+    protected ArrayList<Komputer> ListOfBrands = new ArrayList<>();
+    protected ArrayList<Komputer> ListOfModels = new ArrayList<>();
     
     public DataKomputer() {
         komputers = new Komputer[1000];
@@ -115,52 +118,42 @@ public class DataKomputer implements AppInterface {
                 break;
             }
             case "Brand" -> {
-                byte count = 0;
-                for (Komputer komputer : komputers) {
-                    if(komputer != null){
-                        String brandKomputer = komputer.getBrand().toLowerCase();
+                for (int i = 0; i < komputers.length; i++) {
+                    if(komputers[i] != null){
+                        String brandKomputer = komputers[i].getBrand().toLowerCase();
                         String keywordSearch = keyword.toLowerCase();
-                        if (komputer.getBrand().equalsIgnoreCase(keyword) || brandKomputer.contains(keywordSearch)) {
-                            count++;
+                        if(komputers[i].getBrand().equalsIgnoreCase(keyword) || brandKomputer.contains(keywordSearch)){
+                            ListOfBrands.add(komputers[i]);
                         }
                     }
                 }
-                for (int i = 0; i < count; i++) {
-                    String brandKomputer = komputers[i].getBrand().toLowerCase();
-                    String keywordSearch = keyword.toLowerCase();
-                    if(komputers[i].getBrand().equalsIgnoreCase(keyword) || brandKomputer.contains(keywordSearch)){
-                        rowsField[i][0] = i+1;
-                        rowsField[i][1] = komputers[i].getBrand();
-                        rowsField[i][2] = komputers[i].getModel();
-                        rowsField[i][3] = komputers[i].getDiskType();
-                        rowsField[i][4] = komputers[i].getDiskSize();
-                        rowsField[i][5] = komputers[i].getRam();
-                    }
+                for (int i = 0; i < ListOfBrands.size(); i++) {
+                    rowsField[i][0] = i+1;
+                    rowsField[i][1] = ListOfBrands.get(i).getBrand();
+                    rowsField[i][2] = ListOfBrands.get(i).getModel();
+                    rowsField[i][3] = ListOfBrands.get(i).getDiskType();
+                    rowsField[i][4] = ListOfBrands.get(i).getDiskSize();
+                    rowsField[i][5] = ListOfBrands.get(i).getRam();
                 }
                 break;
             }
             case "Model" -> {
-                byte count = 0;
-                for (Komputer komputer : komputers) {
-                    if(komputer != null){
-                        String modelKomputer = komputer.getModel().toLowerCase();
+                for (int i = 0; i < komputers.length; i++) {
+                    if(komputers[i] != null){
+                        String modelKomputer = komputers[i].getModel().toLowerCase();
                         String keywordSearch = keyword.toLowerCase();
-                        if (komputer.getModel().equalsIgnoreCase(keyword) || modelKomputer.contains(keywordSearch)) {
-                            count++;
+                        if (komputers[i].getModel().equalsIgnoreCase(keyword) || modelKomputer.contains(keywordSearch)) {
+                            ListOfModels.add(komputers[i]);
                         }
                     }
                 }
-                for (int i = 0; i < count; i++) {
-                    String brandKomputer = komputers[i].getModel().toLowerCase();
-                    String keywordSearch = keyword.toLowerCase();
-                    if(komputers[i].getModel().equalsIgnoreCase(keyword) || brandKomputer.contains(keywordSearch)){
-                        rowsField[i][0] = i+1;
-                        rowsField[i][1] = komputers[i].getBrand();
-                        rowsField[i][2] = komputers[i].getModel();
-                        rowsField[i][3] = komputers[i].getDiskType();
-                        rowsField[i][4] = komputers[i].getDiskSize();
-                        rowsField[i][5] = komputers[i].getRam();
-                    }
+                for (int i = 0; i < ListOfModels.size(); i++) {
+                    rowsField[i][0] = i+1;
+                    rowsField[i][1] = ListOfModels.get(i).getBrand();
+                    rowsField[i][2] = ListOfModels.get(i).getModel();
+                    rowsField[i][3] = ListOfModels.get(i).getDiskType();
+                    rowsField[i][4] = ListOfModels.get(i).getDiskSize();
+                    rowsField[i][5] = ListOfModels.get(i).getRam();
                 }
                 break;
             }
