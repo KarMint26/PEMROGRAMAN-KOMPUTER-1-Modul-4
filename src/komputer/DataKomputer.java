@@ -27,7 +27,8 @@ public class DataKomputer implements AppInterface {
                 + "1 &rarr; Tambah Data Komputer<br>"
                 + "2 &rarr; Cari Berdasarkan Brand Komputer<br>"
                 + "3 &rarr; Cari Berdasarkan Model Komputer<br>"
-                + "4 &rarr; Keluar Aplikasi<br>"
+                + "4 &rarr; Tampilkan Seluruh Data<br>"
+                + "5 &rarr; Keluar Aplikasi<br>"
                 + "=============================<br>"
                 + "<b style='color: red;'>Ketik Pilihan Anda: </b>"
                 + "</html>",
@@ -135,6 +136,7 @@ public class DataKomputer implements AppInterface {
                     rowsField[i][4] = ListOfBrands.get(i).getDiskSize();
                     rowsField[i][5] = ListOfBrands.get(i).getRam();
                 }
+                ListOfBrands.removeAll(ListOfBrands);
                 break;
             }
             case "Model" -> {
@@ -155,6 +157,7 @@ public class DataKomputer implements AppInterface {
                     rowsField[i][4] = ListOfModels.get(i).getDiskSize();
                     rowsField[i][5] = ListOfModels.get(i).getRam();
                 }
+                ListOfModels.removeAll(ListOfModels);
                 break;
             }
             default -> {
@@ -173,6 +176,26 @@ public class DataKomputer implements AppInterface {
         } else {
             viewTable(searchType, key);
         }
+    }
+    
+    @Override
+    public void viewAllData(){
+        String[] columnNames = {"No", "Brand", "Model", "Disk Type", "Disk Size", "RAM"};
+        Object[][] rowsField = new Object[komputers.length][columnNames.length];
+        
+        for (int i = 0; i < komputers.length; i++) {
+            if (komputers[i] != null) {
+                rowsField[i][0] = i+1;
+                rowsField[i][1] = komputers[i].getBrand();
+                rowsField[i][2] = komputers[i].getModel();
+                rowsField[i][3] = komputers[i].getDiskType();
+                rowsField[i][4] = komputers[i].getDiskSize();
+                rowsField[i][5] = komputers[i].getRam();
+            }
+        }
+        
+        JTable table = new JTable(rowsField, columnNames);
+        JOptionPane.showMessageDialog(null, new JScrollPane(table), "Data Komputer", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override

@@ -28,6 +28,10 @@ public class Test {
                     data.viewData(k, "Model", key);
                     break;
                 }
+                case AppInterface.SHOW_ALL_DATA -> {
+                    data.viewAllData();
+                    break;
+                }
                 case AppInterface.EXIT -> {
                     data.exit();
                     break;
